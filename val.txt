@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffc1cc, #ffdde1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      color: #ff5c8a;
+      font-size: 16px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      background: #fff0f5;
+      padding: 40px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(255, 105, 135, 0.3);
+      position: relative;
+      width: 320px;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ff4d6d;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 140px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      transition: 0.3s ease;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      left: 50%;
+      transform: translateX(-120%);
+    }
+
+    #no {
+      background: #ffd6e0;
+      color: #ff4d6d;
+      left: 50%;
+      transform: translateX(20%);
+    }
+
+    #no:hover {
+      background: #ffb3c6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Hearts -->
+  <div id="hearts"></div>
+
+  <div class="card" id="card">
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <div class="buttons">
+      <button id="yes">Yes 💖</button>
+      <button id="no">No 😢</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const card = document.getElementById("card");
+
+    let escapeLevel = 1;
+
+    function moveNo() {
+      const maxX = Math.min(80 + escapeLevel * 30, window.innerWidth - 100);
+      const maxY = Math.min(60 + escapeLevel * 20, window.innerHeight - 100);
+
+      const x = (Math.random() > 0.5 ? 1 : -1) * Math.random() * maxX;
+      const y = (Math.random() > 0.5 ? 1 : -1) * Math.random() * maxY;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      escapeLevel++;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("touchstart", moveNo);
+
+    yesBtn.addEventListener("click", () => {
+      card.innerHTML = `
+        <h1>💖 YAYYYYY 💖</h1>
+        <p style="font-size:22px;color:#ff4d6d;">
+          I knew you’d say YES 🥰<br>
+          Congratulations on being my first valentine baby,<br>
+          I love you babuaaaa 💗
+        </p>
+      `;
+    });
+
+    // Floating hearts generator
+    const heartsContainer = document.getElementById("hearts");
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 10 + 12 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
+    }, 300);
+  </script>
+
+</body>
+</html>
